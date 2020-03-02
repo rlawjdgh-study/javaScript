@@ -1,4 +1,4 @@
-package com.kim.jeongho.cample.domain;
+package com.kim.jeongho.cmm.domain;
 
 import lombok.Data;
 

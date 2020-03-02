@@ -12,8 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.kim.jeongho.cample.domain.MemberVO;
-import com.kim.jeongho.cample.mapper.MemberMapper;
+import com.kim.jeongho.cmm.domain.MemberVO;
+import com.kim.jeongho.cmm.mapper.MemberMapper;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -37,8 +37,8 @@ public class MemberTests {
 		
 		String sql = "insert into tbl_member(userid, userpw, username) values (?, ?, ?)";
 		
-		for(int i = 0; i < 100; i++) {
-			
+		for(int i = 0; i < 2; i++) {
+			 
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			
@@ -46,17 +46,14 @@ public class MemberTests {
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(sql);
 				
-				pstmt.setString(2, pwencoder.encode("pw" + i));
+				pstmt.setString(2, pwencoder.encode("1"));
 				
-				if(i < 80) {
-					pstmt.setString(1, "user"+i);
-					pstmt.setString(3, "일반사용자"+i);
-				} else if(i < 90){
-					pstmt.setString(1, "manager"+i);
-					pstmt.setString(3, "운영자"+i);
-				} else {
-					pstmt.setString(1, "admin"+i);
-					pstmt.setString(3, "관리자"+i);
+				if(i == 0) {
+					pstmt.setString(1, "rlawjdgh");
+					pstmt.setString(3, "user");
+				} else if(i == 1) {
+					pstmt.setString(1, "admin");
+					pstmt.setString(3, "admin");
 				}
 				
 				pstmt.executeUpdate();
@@ -79,7 +76,7 @@ public class MemberTests {
 					}
 				}
 			}
-		} 
+		}  
 	}
 	
 	
@@ -89,7 +86,7 @@ public class MemberTests {
 		
 		String sql = "insert into tbl_member_auth(userid, auth) values(?, ?)";
 		
-		for(int i = 0; i < 100; i++) {
+		for(int i = 0; i < 2; i++) {
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -98,18 +95,15 @@ public class MemberTests {
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(sql);
 				
-				pstmt.setString(2, pwencoder.encode("pw" + i));
+				pstmt.setString(2, pwencoder.encode("1"));
 				
-				if(i < 80) {
-					pstmt.setString(1, "user"+i);
-					pstmt.setString(2, "ROLE_USER");
-				} else if(i < 90){
-					pstmt.setString(1, "manager"+i);
+				if(i == 0){
+					pstmt.setString(1, "rlawjdgh");
 					pstmt.setString(2, "ROLE_MEMBER");
-				} else {
-					pstmt.setString(1, "admin"+i);
+				} else if(i == 1) { 
+					pstmt.setString(1, "admin");
 					pstmt.setString(2, "ROLE_ADMIN");
-				} 
+				}  
 				
 				pstmt.executeUpdate();
 			} catch (Exception e) {
@@ -136,8 +130,8 @@ public class MemberTests {
 	
 	@Test
 	public void testRead() {
-		
-		MemberVO vo = mapper.read("admin90");
+		 
+		MemberVO vo = mapper.read("admin");
 
 		log.info(vo); 
 		vo.getAuthList().forEach(authVO -> log.info(authVO));

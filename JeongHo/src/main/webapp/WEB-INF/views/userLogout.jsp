@@ -7,8 +7,8 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
 <title>Insert title here</title>
 </head>
-<body>
-	<form action="/customLogout" method="post">
+<body> 
+	<form action="/userLogout" method="post">
 		<button id="logout_btn"></button>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	</form> 

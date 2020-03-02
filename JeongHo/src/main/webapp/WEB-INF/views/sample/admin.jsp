@@ -9,6 +9,6 @@
 <body>
 	<h1>/sample/admin page</h1>
 	
-	<a href="/customLogout">Logout</a> 
-</body> 
+	<a href="/userLogout">Logout</a> 
+</body>  
 </html>
