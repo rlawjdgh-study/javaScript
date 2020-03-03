@@ -25,7 +25,7 @@
 	</bean>
 	 
 	<mybatis-spring:scan base-package="com.kim.jeongho.*.mapper" />
-	<mybatis-spring:scan base-package="com.kim.jeongho.*.service" />
-		 
+	<context:component-scan base-package="com.kim.jeongho.*.service" />
+		  
 </beans>
-  
+   
