@@ -1,6 +1,7 @@
 package com.kim.jeongho.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kim.jeongho.board.domain.BoardVO;
 
@@ -14,5 +15,5 @@ public interface BoardService {
 	
 	public boolean remove(Long bno);
 	
-	public List<BoardVO> getList();
+	public List<Map<String, Object>> getList();
 } 

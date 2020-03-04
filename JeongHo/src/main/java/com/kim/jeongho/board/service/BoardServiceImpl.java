@@ -1,6 +1,7 @@
 package com.kim.jeongho.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +47,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> getList() {
+	public List<Map<String, Object>> getList() {
 		log.info("BoardServiceImpl > getList");
 		
 		return boardMapper.getList();

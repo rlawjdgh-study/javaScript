@@ -3,9 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kim.jeongho.board.mapper.BoardMapper">
-	
-	<select id="getList" resultType="com.kim.jeongho.board.domain.BoardVO">
-		select * from tbl_board 
+	 
+	<select id="getList" resultType="map">
+		select bno, title, content, writer, 
+		TO_CHAR(regdate, 'YYYY-MM-DD') as regdate,
+		TO_CHAR(updateDate, 'YYYY-MM-DD') as updateDate
+		from tbl_board  
 	</select>
 	
 	<insert id="insert">
