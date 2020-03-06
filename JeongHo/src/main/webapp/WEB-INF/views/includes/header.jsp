@@ -8,10 +8,16 @@
     <link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="/resources/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
     <link href="/resources/css/sb-admin.css" rel="stylesheet">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<title>Insert title here</title>
+    <script src="/resources/js/bootstrap.min.js"></script>
+    <script src="/resources/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/resources/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/resources/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/resources/js/sb-admin.js"></script>
+<title>Insert title here</title>  
 </head>  
-<body> 
+<body>  
 	<div id="wrapper">
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -39,7 +45,7 @@
                                     <span class="pull-right text-muted">
                                         <em>Yesterday</em>
                                     </span>
-                                </div>
+                                </div> 
                                 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
                             </a>
                         </li>
