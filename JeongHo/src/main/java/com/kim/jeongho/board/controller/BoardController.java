@@ -42,6 +42,11 @@ public class BoardController {
 		return map;
 	} 
 	
+	@GetMapping("/register")
+	public void register() {
+		
+	}
+	
 	@PostMapping("/register")
 	public String register(BoardVO vo, RedirectAttributes rttr) {
 		log.info("board > register");

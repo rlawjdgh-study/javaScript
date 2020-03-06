@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>Insert title here</title>
 </head>  
-<body>
+<body> 
 	<div id="wrapper">
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
