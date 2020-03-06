@@ -124,19 +124,18 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>5.0.6.RELEASE</version>
 		</dependency>
-	   	<dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-	    	<groupId>com.fasterxml.jackson.core</groupId>
-	    	<artifactId>jackson-databind</artifactId>
-		    <version>2.9.2</version>
-		</dependency> 
+	   <dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+		<dependency> 
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.9.8</version>
+		</dependency>
         
-
-
+ 
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>

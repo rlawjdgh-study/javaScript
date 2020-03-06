@@ -22,8 +22,8 @@
 		</selectKey>
 		
 		insert into tbl_board(bno, title, content, writer) 
-		values ( seq_board.nextVal, #{title}, #{content}, #{writer})
-	</insert>
+		values (#{bno}, #{title}, #{content}, #{writer})
+	</insert> 
 	
 	<select id="read" resultType="com.kim.jeongho.board.domain.BoardVO">
 		select * from tbl_board where bno = #{bno}
