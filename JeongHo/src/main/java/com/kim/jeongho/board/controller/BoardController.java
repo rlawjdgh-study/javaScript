@@ -38,7 +38,7 @@ public class BoardController {
 		log.info("board > getList");
 		
 		List<Map<String, Object>> map = boardService.getList();
-		
+ 		
 		return map;
 	} 
 	
@@ -60,7 +60,7 @@ public class BoardController {
 	@GetMapping("/get")
 	public void get(@RequestParam("bno") Long bno, Model model) {
 		log.info("board/get");
-		
+		   
 		model.addAttribute("board", boardService.get(bno));
 	} 
 	
