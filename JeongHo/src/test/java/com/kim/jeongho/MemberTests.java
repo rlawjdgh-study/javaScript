@@ -128,7 +128,7 @@ public class MemberTests {
 		} 
 	}
 	
-	@Test
+	//@Test
 	public void testRead() {
 		 
 		MemberVO vo = mapper.read("admin");
