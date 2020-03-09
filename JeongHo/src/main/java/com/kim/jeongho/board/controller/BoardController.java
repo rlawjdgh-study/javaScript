@@ -15,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kim.jeongho.board.domain.BoardVO;
 import com.kim.jeongho.board.service.BoardService;
+import com.kim.jeongho.cmm.domain.Criteria;
+import com.kim.jeongho.cmm.domain.PageDTO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -27,18 +29,19 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@GetMapping("/list")
-	public void list(Model model) {
+	public void list(Criteria cri, Model model) {
 		log.info("board/list");
-		 
-	}
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, 123));  // 임시 값
+	} 
 	
 	@ResponseBody
 	@RequestMapping("/getList")
-	public List<Map<String, Object>> getList() {
+	public List<Map<String, Object>> getList(Criteria cri, Model model) {
 		log.info("board > getList");
 		
-		List<Map<String, Object>> map = boardService.getList();
- 		
+		List<Map<String, Object>> map = boardService.getList(cri);
+		 
 		return map;
 	} 
 	

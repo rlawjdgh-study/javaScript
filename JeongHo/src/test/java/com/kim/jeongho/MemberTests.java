@@ -2,6 +2,8 @@ package com.kim.jeongho;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -12,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.kim.jeongho.board.mapper.BoardMapper;
+import com.kim.jeongho.cmm.domain.Criteria;
 import com.kim.jeongho.cmm.domain.MemberVO;
 import com.kim.jeongho.cmm.mapper.MemberMapper;
 
@@ -31,6 +35,8 @@ public class MemberTests {
 	private DataSource ds;
 	@Setter(onMethod_ = {@Autowired})
 	private MemberMapper mapper;
+	@Setter(onMethod_ = {@Autowired})
+	private BoardMapper boardMapper;
 	
 	//@Test
 	public void testInsertMember() {
@@ -136,5 +142,16 @@ public class MemberTests {
 		log.info(vo); 
 		vo.getAuthList().forEach(authVO -> log.info(authVO));
 	
+	}
+	
+	@Test
+	public void testPaging() {
+		
+		Criteria cri = new Criteria();
+		cri.setPageNum(3);
+		cri.setAmount(10);
+		
+		List<Map<String, Object>> map = boardMapper.getListWithPaging(cri);
+		System.out.println(map);
 	}
 }

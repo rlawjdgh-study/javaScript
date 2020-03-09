@@ -8,7 +8,21 @@
 		select bno, title, content, writer, 
 		TO_CHAR(regdate, 'YYYY-MM-DD') as regdate,
 		TO_CHAR(updateDate, 'YYYY-MM-DD') as updateDate
-		from tbl_board  
+		from tbl_board 
+		order by bno desc
+	</select>
+	
+	<select id="getListWithPaging" resultType="map">
+		<![CDATA[ 
+			select bno, title, content, writer, regdate, updateDate
+			from (
+				select rownum rn, bno, title, content, writer, 
+				TO_CHAR(regdate, 'YYYY-MM-DD') as regdate,
+				TO_CHAR(updateDate, 'YYYY-MM-DD') as updateDate
+				from tbl_board where rownum <= #{pageNum} * #{amount}
+			)
+			where rn > (#{pageNum} -1) * #{amount}
+		]]> 
 	</select>
 	
 	<insert id="insert">

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kim.jeongho.board.domain.BoardVO;
 import com.kim.jeongho.board.mapper.BoardMapper;
+import com.kim.jeongho.cmm.domain.Criteria;
 
 import lombok.extern.log4j.Log4j;
 
@@ -47,11 +48,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getList() {
+	public List<Map<String, Object>> getList(Criteria cri) {
 		log.info("BoardServiceImpl > getList");
 		
-		return boardMapper.getList();
+		return boardMapper.getListWithPaging(cri);
 	}
 	
-
+ 
 }
