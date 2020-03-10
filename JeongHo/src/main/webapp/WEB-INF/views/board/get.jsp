@@ -34,21 +34,36 @@
 					
 					<button class="btn btn-default" data-oper="modify">Modify</button>
 					<button class="btn btn-info" data-oper="list">List</button>	
-				</div>
+				</div>  
 			</div>
 		</div>
 	</div>
 	
+	<form id="operForm" action="/board/modify" method="get">
+		<input type="hidden" id="bno" name="bno" value="<c:out value="${board.bno}"/>">
+		<input type="hidden" id="pageNum" name="pageNum" value="<c:out value="${cri.pageNum}"/>">
+		<input type="hidden" id="amount" name="amount" value="<c:out value="${cri.amount}"/>">
+	</form>  
+	
+	
 	<script type="text/javascript">
-		
-		$(".btn-default").on("click", function() {
-			var bno = "${board.bno}"; 
-			location.href = "/board/modify?bno="+bno;
-		});
-		 
-		$(".btn-info").on("click", function() {
-			location.href = "/board/list";
-		}); 
+	
+		$(document).ready(function() {
+			
+			var operForm = $("#operForm");
+			
+			$("button[data-oper='modify']").on("click", function(e) {
+				operForm.attr("action", "/board/modify").submit();
+			}); 
+			
+			
+			$("button[data-oper='list']").on("click", function(e) {
+				
+				operForm.find("#bno").remove();
+				operForm.attr("action", "/board/list"); 
+				operForm.submit(); 
+			}); 
+		})
 	</script>
 	
 	

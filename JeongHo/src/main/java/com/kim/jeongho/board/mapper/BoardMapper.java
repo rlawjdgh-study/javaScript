@@ -8,11 +8,9 @@ import com.kim.jeongho.cmm.domain.Criteria;
 
 public interface BoardMapper {
  
-	public List<Map<String,Object>> getList();
+	public List<BoardVO> getListWithPaging(Criteria cri);
 	
 	public void insert(BoardVO board);
-	
-	public List<Map<String,Object>> getListWithPaging(Criteria cri);
 	
 	public void insertSelectKey(BoardVO boardVO);
 	

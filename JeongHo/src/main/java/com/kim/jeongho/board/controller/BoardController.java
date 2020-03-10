@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,20 +33,11 @@ public class BoardController {
 	public void list(Criteria cri, Model model) {
 		log.info("board/list");
 		
+		model.addAttribute("list", boardService.getList(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, 123));  // 임시 값
-	} 
-	
-	@ResponseBody
-	@RequestMapping("/getList")
-	public List<Map<String, Object>> getList(Criteria cri, Model model) {
-		log.info("board > getList");
-		
-		List<Map<String, Object>> map = boardService.getList(cri);
-		 
-		return map;
-	} 
-	
-	@GetMapping("/register")
+	}  
+	 
+	@GetMapping("/register") 
 	public void register() {
 		
 	}
@@ -61,7 +53,7 @@ public class BoardController {
 	}
 	 
 	@GetMapping({"/get", "/modify"})
-	public void get(@RequestParam("bno") Long bno, Model model) {
+	public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("board/get OR modify");
 		   
 		model.addAttribute("board", boardService.get(bno));

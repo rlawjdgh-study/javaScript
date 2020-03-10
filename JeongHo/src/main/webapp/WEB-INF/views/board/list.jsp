@@ -29,23 +29,33 @@
 									<th>작성자</th>
 									<th>작성일</th>
 									<th>수정일</th>
-								</tr> 
-							</thead>
-							<tbody id="boardList"></tbody>
+								</tr>
+								<c:forEach items="${list}" var="board">
+									<tr> 
+										<td><c:out value="${board.bno}"/></td>  
+										<td> 
+											<a class="move" href="<c:out value="${board.bno}"/>">
+											<c:out value="${board.title}"/></a>
+										</td> 
+										<td><c:out value="${board.writer}"/></td>
+										<td><fmt:formatDate value="${board.regdate}" pattern="YYYY-MM-dd"/></td>
+										<td><fmt:formatDate value="${board.updateDate}" pattern="YYYY-MM-dd"/></td>
+								</c:forEach>   
+							</thead> 
 						</table>
 						<!-- start Pagination -->
-						<div class="pull-right">
+						<div class="pull-right"> 
 							<ul class="pagination">
 								<c:if test="${pageMaker.prev}">
 									<li class="paginate_button previous">
-										<a href="${pageMaker.startPage -1}">Previous</a>
+										<a href="${pageMaker.startPage -1}">Previous</a> 
 									</li>
 								</c:if>
 								
 								<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-									<li class="paginate_button">
-										<a href="${num}">${num}</a>
-									</li>
+									<li class="paginate_button ${pageMaker.cri.pageNum == num ? 'active':''} ">
+										<a href="${num}">${num}</a> 
+									</li>  
 								</c:forEach>
 								
 								<c:if test="${pageMaker.next}">
@@ -67,7 +77,7 @@
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 	</form>
 	
-	<!-- Modal 추가 --> 
+	<!-- Modal --> 
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -96,40 +106,26 @@
 			$("#regBtn").on("click", function() {
 				self.location = '/board/register'; 
 			});
-			
+			  
 			var actionForm = $("#actionForm");
-			$(".paginate_button a").on("click", function() {
+			$(".paginate_button a").on("click", function(e) {
 				e.preventDefault();
 			  
 				actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-				//actionForm.submit();
-			}); 
+				actionForm.submit();
+			});
 			
-			
-			$.getJSON({ 
-				url : "/board/getList", 
-				type : "get",   
-				success : function(result) {
-					var str = ""; 
-						  
-					// oralce 한정 대문자
-					$.each(result, function(i) {
-						str += "<tr>"; 
-						str += "<td>"+result[i].BNO+"</td>";    
-						str += "<td><a href='/board/get?bno="+result[i].BNO+"'>"+result[i].TITLE+"</a></td>"; 
-						str += "<td>"+result[i].WRITER+"</td>"; 
-						str += "<td>"+result[i].REGDATE+"</td>";  
-						str += "<td>"+result[i].UPDATEDATE+"</td>";
-						str += "</tr>";      
-					});  
-					
-					$("#boardList").html(str); 
-				} 	  
-			});  
-			
+			$(".move").on("click", function(e) {
+				e.preventDefault();
+			 
+				actionForm.append("<input type='hidden' name='bno' value='"+$(this).attr("href")+"'>");
+				actionForm.attr("action", "/board/get"); 
+				actionForm.submit(); 
+			});   
+ 			 
 		}); 
 		
-		function checkModal(result) {
+		function checkModal(result) { 
 			
 			if(result == '') { 
 				return; 

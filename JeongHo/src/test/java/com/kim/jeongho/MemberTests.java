@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.kim.jeongho.board.domain.BoardVO;
 import com.kim.jeongho.board.mapper.BoardMapper;
 import com.kim.jeongho.cmm.domain.Criteria;
 import com.kim.jeongho.cmm.domain.MemberVO;
@@ -143,15 +144,5 @@ public class MemberTests {
 		vo.getAuthList().forEach(authVO -> log.info(authVO));
 	
 	}
-	
-	@Test
-	public void testPaging() {
-		
-		Criteria cri = new Criteria();
-		cri.setPageNum(3);
-		cri.setAmount(10);
-		
-		List<Map<String, Object>> map = boardMapper.getListWithPaging(cri);
-		System.out.println(map);
-	}
+	 
 }
