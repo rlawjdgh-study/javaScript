@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,8 +34,9 @@ public class BoardController {
 	public void list(Criteria cri, Model model) {
 		log.info("board/list");
 		
+		int total = boardService.getTotal(cri);
 		model.addAttribute("list", boardService.getList(cri));
-		model.addAttribute("pageMaker", new PageDTO(cri, 123));  // 임시 값
+		model.addAttribute("pageMaker", new PageDTO(cri, total));  
 	}  
 	 
 	@GetMapping("/register") 
@@ -60,23 +62,27 @@ public class BoardController {
 	} 
 	
 	@PostMapping("/modify")
-	public String modify(BoardVO vo, RedirectAttributes rttr) {
+	public String modify(BoardVO vo,  @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("board > modify");
 		
 		if(boardService.modify(vo)) {
 			rttr.addFlashAttribute("result", "success");
 		}
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
 		
 		return "redirect:/board/list"; 
 	}
 	
 	@PostMapping("/remove")
-	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
+	public String remove(@RequestParam("bno") Long bno,  @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("board > remove");
 		
 		if(boardService.remove(bno)) {
 			rttr.addFlashAttribute("result", "success");
 		}
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
 		
 		return "redirect:/board/list";
 	}
