@@ -23,10 +23,10 @@
 	</update>
 	
 	<select id="getListWithPaging" resultType="com.kim.jeongho.reply.domain.ReplyVO">
-		select rno, bno, reply, replyer, replyDate, updateadate form tbl_reply
-		wher bno = #{bno} 
+		select rno, bno, reply, replyer, replyDate, updateDate from tbl_reply
+		where bno = #{bno} 
 		order by rno
-	</select>
+	</select> 
 	
 </mapper>
   

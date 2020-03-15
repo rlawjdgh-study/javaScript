@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>      
 
 <%@include file="../includes/header.jsp"%>
 	
@@ -47,17 +48,23 @@
 		<input type="hidden" name="type" value="<c:out value="${cri.type}"/>">
 	</form>  
 	
+	<script type="text/javascript" src="/resources/js/reply.js"></script>
 	
 	<script type="text/javascript">
+		var csrfHeaderName ="${_csrf.headerName}"; 
+		var csrfTokenValue="${_csrf.token}";
+		var parameterName =  "${_csrf.parameterName}";
+	
+		$(document).ajaxSend(function(e, xhr, options) { 
+			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue); 
+		});
 	
 		$(document).ready(function() {
 			
 			var operForm = $("#operForm");
-			
 			$("button[data-oper='modify']").on("click", function(e) {
 				operForm.attr("action", "/board/modify").submit();
 			}); 
-			
 			
 			$("button[data-oper='list']").on("click", function(e) {
 				
@@ -65,7 +72,46 @@
 				operForm.attr("action", "/board/list"); 
 				operForm.submit(); 
 			}); 
-		})
+		});
+		
+		var bnoValue = '<c:out value="${board.bno}"/>';
+		// 임시 ↓
+		
+		replyService.add({
+			reply:"JS Test", 
+			replyer : "tester", 
+			bno : bnoValue
+		}, function(result) {
+			alert("RESULT : " + result);
+		});  
+		
+		replyService.getList({
+			bno : bnoValue,
+			page : 1
+		}, function(list) {
+			
+			for(var i = 0, len = list.length||0; i < len; i++) {
+				console.log(list[i]);
+			}
+		});  
+		
+		replyService.remove(1, function(count) {
+			
+			if(count == "success") {
+				alert("REMOVE"); 
+			}
+		}, function(err) {
+			alert("ERROR...");
+		});
+		
+		replyService.update({
+			rno : 2,
+			bno : bnoValue,
+			reply : "Modified Reply...."
+		}, function(result) {
+			alert("수정완료...");		
+		});
+		
 	</script>
 	
 	
