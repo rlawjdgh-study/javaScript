@@ -11,7 +11,7 @@
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	<bean id="customUserDetailsService" class="com.kim.jeongho.cmm.security.CustomUserDetailsService"></bean>
 	  
-	<security:http>  
+	<security:http>    
 		<security:intercept-url pattern="/" access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')"/>
 		<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')"/>  
 		

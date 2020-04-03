@@ -65,3 +65,9 @@ alter table tbl_reply add constraint fk_reply_board
 foreign key (bno) references tbl_board (bno);
 
 create index idx_reply on tbl_reply (bno desc, rno asc); // 인덱스 생성
+
+//게시물 댓글 개수
+alter table tbl_board add (replycnt number default 0);
+
+update tbl_board set replycnt = (select count(rno) from tbl_reply
+	where tbl_reply.bno = tbl_board.bno);

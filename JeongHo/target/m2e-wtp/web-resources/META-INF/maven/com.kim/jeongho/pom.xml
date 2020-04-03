@@ -104,7 +104,7 @@
 			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
 			<version>1.16</version>
 		</dependency>
-		<dependency>
+		<dependency> 
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>5.0.6.RELEASE</version>
@@ -140,7 +140,18 @@
 			<version>2.8.2</version>
 		</dependency>
         
- 
+        <!-- AspectJ -->
+ 		<dependency>
+ 			<groupId>org.aspectj</groupId>
+ 			<artifactId>aspectjrt</artifactId>
+ 			<version>${org.aspectj-version}</version>
+ 		</dependency>
+ 		<dependency>
+ 			<groupId>org.aspectj</groupId>
+ 			<artifactId>aspectjweaver</artifactId>
+ 			<version>${org.aspectj-version}</version>
+ 		</dependency>
+		
 		<!-- @Inject --> 
 		<dependency>
 			<groupId>javax.inject</groupId>

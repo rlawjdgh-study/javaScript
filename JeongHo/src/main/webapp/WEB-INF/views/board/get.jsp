@@ -95,13 +95,12 @@
 	</form>  
 	
 	<script type="text/javascript" src="/resources/js/reply.js"></script>
-	
 	<script type="text/javascript">
 		var csrfHeaderName ="${_csrf.headerName}"; 
 		var csrfTokenValue="${_csrf.token}";
 		var parameterName =  "${_csrf.parameterName}";
 	
-		$(document).ajaxSend(function(e, xhr, options) { 
+		$(document).ajaxSend(function(e, xhr, options) {  
 			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue); 
 		});
 	
@@ -220,16 +219,7 @@
 				});
 			});
 			
-			modalRemoveBtn.on("click", function(e) {
-				var rno = modal.data("rno");
-				
-				replyService.remove(rno, function(result) {
-					modal.modal("hide");
-					showList(1); 
-				});
-			});
-			
-			
+ 			
 			var pageNum = 1;
 			var replyPageFooter = $(".panel-footer");
 			
