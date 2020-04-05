@@ -151,7 +151,13 @@
  			<artifactId>aspectjweaver</artifactId>
  			<version>${org.aspectj-version}</version>
  		</dependency>
-		
+ 		
+ 		<dependency>
+ 			<groupId>net.coobird</groupId>
+ 			<artifactId>thumbnailator</artifactId>
+ 			<version>0.4.8</version>
+ 		</dependency>
+ 		
 		<!-- @Inject --> 
 		<dependency>
 			<groupId>javax.inject</groupId>
