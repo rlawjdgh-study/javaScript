@@ -17,9 +17,10 @@
 	
 	<security:http pattern="/uploadFormAction" security="none" />
 	<security:http pattern="/uploadAjax" security="none" />
-	<security:http pattern="/uploadAjaxAction" security="none" />
+	<security:http pattern="/uploadAjaxAction" security="none" /> 
 	<security:http pattern="/display" security="none" />
 	<security:http pattern="/download" security="none" />
+	<security:http pattern="/deleteFile" security="none" />
 	    
 	     
 	<security:http> 
