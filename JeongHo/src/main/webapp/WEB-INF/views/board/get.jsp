@@ -289,7 +289,7 @@
 				replyService.remove(rno, function(result) {
 					
 					modal.modal("hide");
-					showList(pageNum);
+					showList(pageNum); 
 				});
 			}); 
 			

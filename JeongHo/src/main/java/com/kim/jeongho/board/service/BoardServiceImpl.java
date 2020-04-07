@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kim.jeongho.board.domain.BoardVO;
 import com.kim.jeongho.board.mapper.BoardMapper;
 import com.kim.jeongho.cmm.domain.Criteria;
+import com.kim.jeongho.cmm.mapper.AttachMapper;
 
 import lombok.extern.log4j.Log4j;
 
@@ -17,13 +19,26 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
 	private BoardMapper boardMapper;
-
+	@Autowired
+	private AttachMapper attachMapper; 
+	
+	@Transactional
 	@Override
 	public void register(BoardVO boardVO) {
 		log.info("BoardServiceImpl > register");
 		
 		boardMapper.insertSelectKey(boardVO);
-	}
+		
+		if(boardVO.getAttachList() == null || boardVO.getAttachList().size() <= 0) {
+			return;
+		}
+		
+		boardVO.getAttachList().forEach(attach -> {
+			attach.setBno(boardVO.getBno());
+			
+			attachMapper.insert(attach);
+		}); 
+	} 
 
 	@Override
 	public BoardVO get(Long bno) {

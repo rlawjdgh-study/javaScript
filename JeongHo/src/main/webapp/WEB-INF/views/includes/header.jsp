@@ -5,10 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="/resources/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
     <link href="/resources/css/sb-admin.css" rel="stylesheet">
-    
+     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/resources/js/bootstrap.min.js"></script>
     <script src="/resources/js/plugins/metisMenu/jquery.metisMenu.js"></script>

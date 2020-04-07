@@ -40,6 +40,7 @@
 			rownum <= #{pageNum} * #{amount}
 			)
 		where rn > (#{pageNum} -1) * #{amount}
+		order by bno desc 
 		]]>
 	</select> 
 	
