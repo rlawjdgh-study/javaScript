@@ -11,4 +11,6 @@ public interface AttachMapper {
 	public void delete(String id);
 	
 	public List<AttachFileDTO> findByBno(Long bno);
+	
+	public void deleteAll(Long bno);
 }

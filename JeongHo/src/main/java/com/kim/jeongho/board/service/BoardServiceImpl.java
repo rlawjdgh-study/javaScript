@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kim.jeongho.board.domain.BoardVO;
 import com.kim.jeongho.board.mapper.BoardMapper;
+import com.kim.jeongho.cmm.domain.AttachFileDTO;
 import com.kim.jeongho.cmm.domain.Criteria;
 import com.kim.jeongho.cmm.mapper.AttachMapper;
 
@@ -54,10 +55,12 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.update(boardVO) == 1;
 	}
 
+	@Transactional
 	@Override
 	public boolean remove(Long bno) {
 		log.info("BoardServiceImpl > remove");
-		
+		 
+		attachMapper.deleteAll(bno);
 		return boardMapper.delete(bno) == 1;
 	}
 
@@ -72,6 +75,12 @@ public class BoardServiceImpl implements BoardService {
 	public int getTotal(Criteria cri) {
 		
 		return boardMapper.getTotalCount(cri);
+	}
+
+	@Override
+	public List<AttachFileDTO> getAttachList(Long bno) {
+		
+		return attachMapper.findByBno(bno); 
 	}
 	
  

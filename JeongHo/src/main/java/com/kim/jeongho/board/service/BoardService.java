@@ -3,6 +3,7 @@ package com.kim.jeongho.board.service;
 import java.util.List;
 
 import com.kim.jeongho.board.domain.BoardVO;
+import com.kim.jeongho.cmm.domain.AttachFileDTO;
 import com.kim.jeongho.cmm.domain.Criteria;
 
 public interface BoardService {
@@ -18,4 +19,6 @@ public interface BoardService {
 	public List<BoardVO> getList(Criteria cri); 
 	
 	public int getTotal(Criteria cri);
+	
+	public List<AttachFileDTO> getAttachList(Long bno);
 } 

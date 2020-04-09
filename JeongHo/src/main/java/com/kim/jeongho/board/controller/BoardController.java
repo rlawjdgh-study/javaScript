@@ -1,9 +1,15 @@
 package com.kim.jeongho.board.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kim.jeongho.board.domain.BoardVO;
 import com.kim.jeongho.board.service.BoardService;
+import com.kim.jeongho.cmm.domain.AttachFileDTO;
 import com.kim.jeongho.cmm.domain.Criteria;
 import com.kim.jeongho.cmm.domain.PageDTO;
 
@@ -29,6 +36,29 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	private void deleteFiles(List<AttachFileDTO> attachList) {
+		
+		if(attachList == null || attachList.size() == 0) {
+			return;
+		}
+		
+		attachList.forEach(attach -> {
+			try {
+				Path file = Paths.get("D:\\JeongHo\\Upload\\" + attach.getUploadPath() + "\\" + attach.getUuid() + "_" + attach.getFileName());
+				Files.delete(file);
+				
+				if(Files.probeContentType(file).startsWith("image")) {
+					
+					Path thumbNail = Paths.get("D:\\JeongHo\\Upload\\" + attach.getUploadPath() + "\\s_" + attach.getUuid() + "_" + attach.getFileName());
+					Files.delete(thumbNail);
+				} 
+				
+			} catch(Exception e) {
+				e.getMessage();
+			}
+		});
+	}
 	
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model) {
@@ -79,7 +109,10 @@ public class BoardController {
 	public String remove(@RequestParam("bno") Long bno,  @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("board > remove");
 		
+		List<AttachFileDTO> attachList = boardService.getAttachList(bno);
+		
 		if(boardService.remove(bno)) {
+			deleteFiles(attachList); 
 			rttr.addFlashAttribute("result", "success");
 		}
 		rttr.addAttribute("pageNum", cri.getPageNum());
@@ -89,4 +122,12 @@ public class BoardController {
 		 
 		return "redirect:/board/list" + cri.getListLink();
 	}
+	
+	@ResponseBody
+	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<List<AttachFileDTO>> getAttachList(Long bno) {
+		
+		return new ResponseEntity<>(boardService.getAttachList(bno), HttpStatus.OK);
+	}
+	
 }
