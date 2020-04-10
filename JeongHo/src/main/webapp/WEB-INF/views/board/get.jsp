@@ -413,7 +413,7 @@
 								str += "</div>";
 							str += "</li>";
 										
-						}
+						}  
 					}); 
 					
 					$(".uploadResult ul").html(str); 

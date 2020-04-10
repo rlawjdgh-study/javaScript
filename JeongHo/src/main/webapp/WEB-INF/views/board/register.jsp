@@ -89,8 +89,8 @@
 				
 				<div class="panel-heading">File Attach</div>
 				<div class="panel-body">
-					<div class="form-group uploadDiv">
-						<input type="file" name="uploadFile" multiple>
+					<div class="form-group uploadDiv"> 
+						<input type="file" name="uploadFile" multiple="multiple">
 					</div>
 					<div class="uploadResult">
 						<ul></ul>

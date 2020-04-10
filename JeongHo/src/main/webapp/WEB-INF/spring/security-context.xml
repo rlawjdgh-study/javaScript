@@ -11,14 +11,7 @@
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	<bean id="customUserDetailsService" class="com.kim.jeongho.cmm.security.CustomUserDetailsService"></bean>
 	 
-	<security:http pattern="/resources/**" security="none" />
-	<!-- upload 임시 --> 
-	<security:http pattern="/uploadForm" security="none" />
-	
-	<security:http pattern="/uploadFormAction" security="none" />
-	<security:http pattern="/uploadAjax" security="none" />
-	<security:http pattern="/display" security="none" />
-	<security:http pattern="/download" security="none" />
+	<security:http pattern="/resources/**" security="none" /> 
 	     
 	<security:http> 
 		<security:intercept-url pattern="/userLogin" access="permitAll" />     
