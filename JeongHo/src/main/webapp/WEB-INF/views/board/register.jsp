@@ -71,9 +71,9 @@
 							<textarea class="form-control" rows="3" name="content"></textarea>
 						</div>
 						<div class="form-group">
-							<label>Writer</label>
-							<input class="form-control" name="writer">
-						</div>						
+							<label>Writer</label> 
+							<input class="form-control" name='writer' value='<sec:authentication property="principal.username"/>' readonly="readonly">
+						</div>						 
 						
 						<button type="submit" class="btn btn-default">Submit Button</button>
 						<button type="reset" class="btn btn-default">Reset Button</button> 
@@ -168,6 +168,9 @@
 					data : formData,
 					type : 'POST',
 					dataType : 'json',
+					beforeSend : function(xhr) {
+						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					},   
 					success : function(result) {
 						showUploadResult(result); 
 					}
@@ -230,6 +233,9 @@
 					},
 					dataType : 'text',
 					type : 'POST',
+					beforeSend : function(xhr) {
+						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					}, 
 					success : function(result) {
 						targetLi.remove();
 					} 

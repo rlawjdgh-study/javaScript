@@ -4,15 +4,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,14 +69,16 @@ public class BoardController {
 	}  
 	 
 	@GetMapping("/register") 
-	public void register() {
+	@PreAuthorize("isAuthenticated()")
+	public void register() { 
 		
-	}
+	} 
 	
-	@PostMapping("/register")
+	@PostMapping("/register") 
+	@PreAuthorize("isAuthenticated()")
 	public String register(BoardVO vo, RedirectAttributes rttr) {
 		log.info("board > register");
-		
+		 
 		if(vo.getAttachList() != null) {
 			vo.getAttachList().forEach(attach -> log.info(attach));
 		} 
@@ -88,13 +89,14 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	 
-	@GetMapping({"/get", "/modify"})
+	@GetMapping({"/get", "/modify"}) 
 	public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("board/get OR modify");
 		   
 		model.addAttribute("board", boardService.get(bno));
 	} 
 	
+	@PreAuthorize("principal.username == #writer") 
 	@PostMapping("/modify")
 	public String modify(BoardVO vo,  @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("board > modify");
@@ -105,7 +107,8 @@ public class BoardController {
 		return "redirect:/board/list" + cri.getListLink(); 
 	}
 	
-	@PostMapping("/remove")
+	@PreAuthorize("principal.username == #writer")
+	@PostMapping("/remove") 
 	public String remove(@RequestParam("bno") Long bno,  @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("board > remove");
 		

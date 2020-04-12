@@ -79,7 +79,13 @@
 						<input class="form-control" name="writer" value="<c:out value="${board.writer}"/>" readonly="readonly">
 					</div>
 					
-					<button class="btn btn-default" data-oper="modify">Modify</button>
+					<sec:authentication property="principal" var="pinfo"/>
+					<sec:authorize access="isAuthenticated()">
+						<c:if test="${pinfo.username eq board.writer}">
+							<button class="btn btn-default" data-oper="modify">Modify</button>
+						</c:if>
+					</sec:authorize>
+					 
 					<button class="btn btn-info" data-oper="list">List</button>	
 				</div>  
 			</div>
@@ -107,7 +113,9 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<i class="fa fa-comments fa-fw"></i> REPLY 
-					<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">New Reply</button>
+					 <sec:authorize access="isAuthenticated()">
+					 	<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">New Reply</button>
+					 </sec:authorize>
 				</div> 
 				<div class="panel-body">
 					<ul class="chat"></ul>
@@ -130,11 +138,11 @@
 						<input class="form-control" name="reply" value="New Reply!!!!">
 					</div>
 					<div class="form-group">
-						<label>Replyer</label>
-						<input class="form-control" name="replyer" value="replyer">
+						<label>Replyer</label> 
+						<input class="form-control" name="replyer" value="replyer" readonly="readonly">
 					</div>
 					<div class="form-group">
-						<label>Reply Date</label>
+						<label>Reply Date</label> 
 						<input class="form-control" name="replyDate" value="">
 					</div>
 					<div class="modal-footer">
@@ -144,8 +152,8 @@
 						<button type="button" class="btn btn-default" id="modalCloseBtn">Close</button>
 					</div> 
 				</div>
-			</div>
-		</div>
+			</div>  
+		</div>  
 	</div>
 	
 	<form id="operForm" action="/board/modify" method="get">
@@ -161,7 +169,11 @@
 		var csrfHeaderName ="${_csrf.headerName}"; 
 		var csrfTokenValue="${_csrf.token}";
 		var parameterName =  "${_csrf.parameterName}";
-	
+		
+		<sec:authorize access="isAuthenticated()">
+	    	replyer = '<sec:authentication property="principal.username"/>';   
+		</sec:authorize> 
+	 
 		$(document).ajaxSend(function(e, xhr, options) {  
 			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue); 
 		});
@@ -257,6 +269,7 @@
 				
 				modal.find("input").val("");
 				modalInputReplyDate.closest("div").hide();
+				modal.find("input[name='replyer']").val(replyer); 
 				modal.find("button[id != 'modalCloseBtn']").hide();
 				modalRegisterBtn.show();
 				
@@ -385,7 +398,7 @@
 				});
 			}); 
 		});
-		
+		 
 		function getBoardImageList(bno) {
 			
 			$.getJSON({
