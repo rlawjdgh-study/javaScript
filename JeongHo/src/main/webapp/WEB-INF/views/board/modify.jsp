@@ -139,9 +139,10 @@
 			
 			$("button").on("click", function(e) {
 				e.preventDefault();
+				 
+				var operation = $(this).data("oper"); // 버튼의 data를 가져온다
 				
-				var operation = $(this).data("oper");
-				
+				// 삭제, 돌아가기, 수정 
 				if(operation == 'remove') {
 					formObj.attr("action", "/board/remove");
 				} else if(operation == 'list') {
@@ -172,8 +173,7 @@
 				}
 				
 				formObj.submit();
-				
-			});
+			}); 
 			
 			$(".uploadResult").on("click", "button", function(e) {
 				

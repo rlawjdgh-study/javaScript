@@ -40,9 +40,8 @@
 			rownum <= #{pageNum} * #{amount}
 			)
 		where rn > (#{pageNum} -1) * #{amount}
-		order by bno desc 
 		]]>
-	</select> 
+	</select>  
 	
 	<insert id="insert">
 		insert into tbl_board(bno, title, content, writer) 

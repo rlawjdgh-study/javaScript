@@ -11,14 +11,14 @@ import lombok.ToString;
 @ToString
 public class Criteria {
 
-	private int pageNum;
-	private int amount;
+	private int pageNum; // 페이지 넘버
+	private int amount; // 보여줄 개수
 	
 	private String type;
 	private String keyword;
 	
 	public Criteria() {
-		this(1, 10);
+		this(1, 10); 
 	}
 	
 	public Criteria(int pageNum, int amount) {

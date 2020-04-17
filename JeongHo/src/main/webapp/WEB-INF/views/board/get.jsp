@@ -156,7 +156,7 @@
 		</div>  
 	</div>
 	
-	<form id="operForm" action="/board/modify" method="get">
+	<form id="operForm" method="get">
 		<input type="hidden" id="bno" name="bno" value="<c:out value="${board.bno}"/>">
 		<input type="hidden" id="pageNum" name="pageNum" value="<c:out value="${cri.pageNum}"/>">
 		<input type="hidden" id="amount" name="amount" value="<c:out value="${cri.amount}"/>">
@@ -165,7 +165,7 @@
 	</form>  
 	
 	<script type="text/javascript" src="/resources/js/reply.js"></script>
-	<script type="text/javascript">
+	<script type="text/javascript"> 
 		var csrfHeaderName ="${_csrf.headerName}"; 
 		var csrfTokenValue="${_csrf.token}";
 		var parameterName =  "${_csrf.parameterName}";
@@ -180,11 +180,13 @@
 	
 		$(document).ready(function() {
 			
+			// modify 페이지로 이동
 			var operForm = $("#operForm");
 			$("button[data-oper='modify']").on("click", function(e) {
 				operForm.attr("action", "/board/modify").submit();
 			}); 
 			
+			// list 페이지로 이동
 			$("button[data-oper='list']").on("click", function(e) {
 				
 				operForm.find("#bno").remove();
